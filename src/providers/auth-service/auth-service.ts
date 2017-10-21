@@ -31,7 +31,7 @@ public setItem(){
  }
 
 public getItems(){
-  this.items = this.db.list('/usuario');
+  this.items = this.db.list('/usuarios');
  
   return this.items;
 }

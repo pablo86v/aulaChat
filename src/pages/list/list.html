@@ -1,23 +1,33 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>List</ion-title>
+  <ion-navbar color="bluedark">
+    <ion-title>Aula Chat</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
+
+<ion-content class="bg">
+  <div style="margin-top:15px" class="animated fadeInUp">
+    <div class="row mb-2" *ngFor="let message of messages ; let i = index">
+      <div class="col-12">
+        <div class="chatBox" >
+          <span class="usuario">{{message.usuario}}</span> {{message.mensaje}}
+        </div>
       </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
+    </div>
   </div>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="form-group">
+      <div class="row"></div>
+      <div class="row">
+        <input type="text" [(ngModel)]="mensaje" placeholder="Mensaje..." class="escribirMsj"/>
+        <button ion-button (click)="guardarMensaje(mensaje)" class="btn_enviar">Send</button> 
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer> 
+
+ 

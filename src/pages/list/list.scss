@@ -1,3 +1,62 @@
-page-list {
+page-list{
 
-}
+    
+    .bg{
+        background: url("./../assets/chat-background.png");
+        padding: 10px;
+    }
+
+    .usuario{
+        color: #9C6B03;
+        display: block;
+        font-family: 'fantasy';
+        // font-weight: bold;
+    }
+
+     .chatBox {
+        position: relative;
+        background: #F2E265;
+        border: 1px solid #fff;
+        height: auto;
+        padding: 7px;
+        border-radius: 7px;
+        // width: 80%;
+        // -webkit-box-shadow: 2px 2px 8px -2px rgba(0,0,0,0.75);
+        // -moz-box-shadow: 2px 2px 8px -2px rgba(0,0,0,0.75);
+        // box-shadow: 2px 2px 8px -2px rgba(0,0,0,0.75);
+        float: right;
+        color: #262626;
+        font-size: 13.6px;
+        font-family: 'Open Sans', sans-serif;
+        margin-left: 15px;
+    }
+    
+    .color{
+        background-color : #9C6B03;
+        color : #9C6B03;
+        background: #9C6B03;
+
+    }
+
+
+    #escribirMsj{
+        border-radius: 20px;
+        width:290px;
+        height: 35px;
+        font-size: 13.6px;
+        line-height: 23px;
+        resize: none;
+        margin-left:5px;
+    }
+
+    #btn_enviar{
+        height: 35px;
+        width: 35px;
+        border-radius: 100%;
+        margin-left: 10px;
+    }
+
+
+
+
+} //page-list
