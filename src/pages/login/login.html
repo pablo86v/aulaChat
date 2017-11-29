@@ -1,27 +1,32 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Login</ion-title>
+  <ion-navbar back color="bluedark" hideBackButton="true">
+    <ion-title style="text-align:center">INGRESAR</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label>Usuario</ion-label>
-      <ion-select [(ngModel)]="usuario" (ngModelChange)="selectUser($event)">
-        <ion-option value={{item.nombre}} *ngFor="let item of items">{{item.nombre}}</ion-option>
-      </ion-select>
-    </ion-item>
+<ion-content style="background-color: #efc75e6e" padding>
+  <div align="center" class="mt-5 animated flip"><img src="./assets/img/logo1.png" width="250"></div>
 
-    <ion-item>
-      <ion-label fixed>Contraseña</ion-label>
-      <ion-input text-right type="text" [(ngModel)]="contrasenia"></ion-input>
-    </ion-item>
-  </ion-list>
-   <button ion-button (click)="validateUser()" >Iniciar sesión</button> 
-  
-  <!-- <input type="button" class="btn btn-primary" value="Iniciar sesión"/>
-  <button ion-button type="button" class="btn btn-primary botonimagen">Primary</button>   -->
-  
+  <div class="mt-5 animated bounceInLeft">
+    <div class="input-group mb-2 mb-sm-0">
+      <!-- <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div> -->
+      <input type="text" class="form-control form-control-lg" id="inlineFormInputGroup" placeholder="Usuario" [(ngModel)]="usuario.nombre">
+    </div>
+    <div class="input-group mb-2 mb-sm-0">
+      <!-- <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> -->
+      <input type="password" class="form-control form-control-lg" id="inlineFormInputGroup" placeholder="Contraseña" [(ngModel)]="usuario.clave">
+    </div>
+
+    <div class="form-group" id="seleccion">
+      <select class="form-control select" [(ngModel)]="usuario">
+          <option selected [ngValue]="">Ingresar como...</option>
+          <option *ngFor="let u of arrUsuarios" [ngValue]="u">{{u.nombre}}</option>
+        </select>
+    </div>
+  </div>
+  <div align="center"><button class="btn btn-default mt-4 animated rotateIn" (click)="validarUsuario()"><i class="fa fa-sign-in" aria-hidden="true"></i> Acceder</button></div>
+
+
+
 </ion-content>

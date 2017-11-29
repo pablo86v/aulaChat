@@ -1,58 +1,55 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpModule }    from '@angular/http';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 import { MyApp } from './app.component';
-import { StatusBar } from '@ionic-native/status-bar';
-
-
-//P�ginas
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
+import { MenuPage } from '../pages/menu/menu';
+import { SalaPage } from '../pages/sala/sala';
+import { UsuarioErrorPage } from '../pages/usuario-error/usuario-error';
 
-//Servicios
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
+
+import { CONFIG } from './firebase';
+
+import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { DataProvider } from '../providers/data/data';
-
-
-
-
-
+import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-service';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    ListPage,
     LoginPage,
-    ListPage
+    MenuPage,
+    SalaPage,
+    UsuarioErrorPage
   ],
   imports: [
-    HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
+    AngularFireModule.initializeApp(CONFIG),
     AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
+    ListPage,
     LoginPage,
-    ListPage
+    MenuPage,
+    SalaPage,
+    UsuarioErrorPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider,
-    DataProvider
+    UsuarioServiceProvider
   ]
 })
 export class AppModule {}

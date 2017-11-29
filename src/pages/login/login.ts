@@ -1,18 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { App, ViewController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+import { UsuarioServiceProvider } from '../../providers/usuario-service/usuario-service';
+import { MenuPage } from '../menu/menu';
 import { LoadingController } from 'ionic-angular';
-
-// Pages
-import { HomePage } from '../../pages/home/home';
-import { Usuario } from '../../entidades/usuario';
-
-//Providers
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-
-
-
+import { UsuarioErrorPage } from '../usuario-error/usuario-error';
 
 @IonicPage()
 @Component({
@@ -21,77 +12,73 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class LoginPage {
 
-  items: any[];
-  contrasenia: string;
-  objUsuario: Usuario;
+  private arrUsuarios;
+  private usuario = {"nombre":"","clave":""};
+  private loading;
 
-
-  constructor(public navCtrl: NavController, public appCtrl: App, public viewCtrl: ViewController,
-    public navParams: NavParams, public auservice: AuthServiceProvider, public toastCtrl: ToastController
-    , public loadingCtrl: LoadingController) {
-    this.getUsers();
-    this.objUsuario = new Usuario();
-    this.contrasenia = "";
-
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private usuarioService: UsuarioServiceProvider,
+              private loadingCtrl: LoadingController)
+  {
+    this.createLoading("Estableciendo conexión con la BD...");
+    this.loading.present();
+    this.traerUsuarios();
   }
 
-
-  presentToast(textToShow) {
-    const toast = this.toastCtrl.create({
-      message: textToShow,
-      duration: 2000,
-      position: 'middle'
-    });
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-    toast.present();
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
   }
 
-
-  selectUser(valor) {
-    for (let user of this.items) {
-      if (user.nombre == valor) {
-        this.objUsuario = user;
-        this.contrasenia = user.clave;
-      }
-    }
-    localStorage.setItem("usuario", this.objUsuario.nombre);
+  private createLoading(message: string)
+  {
+    this.loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: `
+      <div class="custom-spinner-container">
+        <div class="custom-spinner-box mt-2">
+        <img src="./assets/img/logo2.png" width="80">
+        </div>
+      </div>` + message
+    });
   }
 
-
-  getUsers() {
-    // configuro spinner para mientras se cargan los datos 
-    const loading = this.loadingCtrl.create({
-      content: 'Espere por favor...'
-    });
-    loading.present();
-
-    this.auservice.getItems().subscribe(
-      datos => {
-        this.items = datos;
-        loading.dismiss();
+  private traerUsuarios()
+  {
+    this.usuarioService.getUsuarios().subscribe(
+      data => 
+      {
+        this.arrUsuarios = data;
+        this.loading.dismiss();
       },
-      error => console.error(error),
-      () => console.log("ok")
+      err => console.error(err),
+      () => alert("Usuarios: " + this.arrUsuarios)
     );
   }
 
+  private validarUsuario()
+  {
+    this.createLoading("Validando usuario...");
+    this.loading.present();
+    let usuarioEncontrado = false;
 
-  validateUser() {
-    if (this.contrasenia != this.objUsuario.clave || this.contrasenia == "") {
-      this.presentToast("Contraseña inválida");
-    }
-    else {
-      this.navCtrl.push(HomePage);
-    }
+    this.arrUsuarios.forEach(element => {
+      if(element.nombre == this.usuario.nombre && element.clave == this.usuario.clave)
+      {
+        usuarioEncontrado = true;
+        localStorage.setItem("usuario",element.nombre);
+        this.loading.dismiss();
+        setTimeout(()=> {
+          this.loading.dismiss();
+          this.navCtrl.push(MenuPage);
+        }, 1000);
+      }
+    });
+    if(usuarioEncontrado == false)
+    setTimeout(()=> {
+      this.loading.dismiss();
+      this.navCtrl.push(UsuarioErrorPage);
+    }, 1000);
   }
 
-
-  ionViewDidLoad() {
-
-  }
-
-
-}//class
-
+}
