@@ -1,69 +1,37 @@
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { App, ViewController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { Usuario } from '../../entidades/usuario';
-
-//Providers
-import { DataProvider } from '../../providers/data/data';
-import { Observable } from 'rxjs/Observable';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
 export class ListPage {
-  messages: any[];
-  objUsuario: Usuario;
-  chatName : string;
-  mensaje: string;
+  selectedItem: any;
+  icons: string[];
+  items: Array<{title: string, note: string, icon: string}>;
 
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // If we navigated to this page, we will have an item available as a nav param
+    this.selectedItem = navParams.get('item');
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public appCtrl:
-    App, public data: DataProvider, public toastCtrl: ToastController) {
-      this.chatName = localStorage.getItem("chatName");
-      this.traerMensajes();
-      this.mensaje = "";
-  }
+    // Let's populate this page with some filler content for funzies
+    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+    'american-football', 'boat', 'bluetooth', 'build'];
 
-
-  traerMensajes() {
-    this.data.getItems(localStorage.getItem("chatName")).subscribe(
-      data => {
-        this.messages = data;
-      },
-      err => console.error(err),
-      () => console.log(this.messages)
-    );
-  }
-
-  guardarMensaje(mensaje)
-  {
-    if (this.mensaje.length > 0){
-    this.data.setItem(mensaje,localStorage.getItem("usuario"));
-    this.mensaje = "";
+    this.items = [];
+    for (let i = 1; i < 11; i++) {
+      this.items.push({
+        title: 'Item ' + i,
+        note: 'This is item #' + i,
+        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+      });
     }
   }
 
-  presentToast(textToShow) {
-    const toast = this.toastCtrl.create({
-      message: textToShow,
-      duration: 2000,
-      position: 'middle'
+  itemTapped(event, item) {
+    // That's right, we're pushing to ourselves!
+    this.navCtrl.push(ListPage, {
+      item: item
     });
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-    toast.present();
   }
-
-
-
-
-  
-
-
-}//class
+}

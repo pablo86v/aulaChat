@@ -1,0 +1,70 @@
+page-menu {
+    h3{
+        color: white;
+    }
+
+    .boton{
+        text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+              text-align:center;
+              text-decoration: none;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        display:inline-block;
+              color: #FFF;
+              background: #7F8C8D;
+              padding: 6px 30px;
+              white-space: nowrap;
+              -webkit-border-radius: 5px;
+              -moz-border-radius: 5px;
+              border-radius: 5px;
+              margin: 10px 5px;
+              -webkit-transition: all 0.2s ease-in-out;
+              -ms-transition: all 0.2s ease-in-out;
+              -moz-transition: all 0.2s ease-in-out;
+              -o-transition: all 0.2s ease-in-out;
+              transition: all 0.2s ease-in-out;
+              height: 200px;
+              font-size: 18px;
+              font-size: 40px;
+  }
+     
+  .azul{
+    // background-image: url("https://previews.123rf.com/images/blankstock/blankstock1409/blankstock140902492/31409134-Cara-triste-con-la-muestra-de-l-grima-icono-Llorar-s-mbolo-de-chat-Bocadillo-de-di-logo-L-neas-de-la-Foto-de-archivo.jpg");
+    border: 1px solid #2980B9;
+    background: #2196f3;
+  }
+  
+  .azul:hover{
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+  
+  .verde{
+    background: #2ECC71;
+    border: 1px solid #27AE60;
+  }
+  
+  
+  .verde:hover{
+    background: #32db78;
+  }
+  
+  .rojo{
+    background: #E74C3C;
+    border: 1px solid #C0392B;
+  }
+  
+  .rojo:hover{
+    background: #ff5242;
+  }
+
+  #texto{
+    display: block;
+  }
+
+  .btn-salir{
+    height: 45px;
+    font-size: 18px;
+    background-image: url("./../assets/img/texturas/btn-rojo.jpg");
+  }
+}
