@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar color="bluedark">
+    <ion-title style="text-align:center">{{sala}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="fondo">
+
+  <div style="margin-top:15px">
+    <div class="row mb-2" *ngFor="let message of arrMensajes ; let i = index">
+      <div class="col-12">
+        <div class="arrow_box_rigth" *ngIf="message.nombre == usuarioLogueado">
+          <!-- <span class="autor">{{message.nombre}}</span> -->
+           {{message.mensaje}}
+        </div>
+        <div class="arrow_box_left" *ngIf="message.nombre != usuarioLogueado">
+          <span class="autor">{{message.nombre}}</span> {{message.mensaje}}
+        </div>
+      </div>
+    </div>
+    <!-- <div id="caja_bottom"></div> -->
+    <div id="ultima_caja"></div>
+  </div>
+
+
+
+
+</ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <div class="form-inline mt-4" id="campoEscribirMsj">
+      <div class="form-group">
+        <textarea class="form-control" id="escribirMsj" maxlength="60" placeholder="Escribir mensaje" rows="1" [(ngModel)]="mensaje"></textarea>
+      </div>
+      <div class="form-group">
+        <a id="btn_enviar" (click)="guardarMensaje(mensaje)" href="#caja_bottom"><img src="./assets/icon/send2.png" id="enviarIcon" width="30"></a>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
